@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { MealItem } from "./meal-item/MealItem";
 import { useDispatch, useSelector } from "react-redux";
-import { getMeals } from "../../store/meals/meals";
+import { getMeals } from "../../store/meals/mealsThunk";
 
 export const Meals = React.memo(() => {
   const dispatch = useDispatch();

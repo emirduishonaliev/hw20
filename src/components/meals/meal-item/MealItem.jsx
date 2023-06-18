@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MealItemForm } from "./MealItemForm";
 import { useDispatch } from "react-redux";
-import { addToBasket } from "../../../store/basket/basket";
+import { addItem } from "../../../store/basket/basketThunk";
 
 export const MealItem = ({ meal }) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const MealItem = ({ meal }) => {
       id: meal._id,
       amount: +amount,
     };
-    dispatch(addToBasket(data));
+    dispatch(addItem(data));
   };
 
   return (

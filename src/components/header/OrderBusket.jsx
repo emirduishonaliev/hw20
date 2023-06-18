@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as BasketIcon } from "../../assets/icons/Group.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { getBasket } from "../../store/basket/basket";
+import { getBasket } from "../../store/basket/basketThunk";
 
 export const OrderBasket = ({ children, onToggle, className }) => {
   const { basketData } = useSelector((state) => state.basket);

@@ -5,10 +5,10 @@ import { TotalAmount } from "./TotalAmount";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteBasketItem,
+  decrementFood,
   getBasket,
-  updateBasketItem,
-} from "../../store/basket/basket";
+  incrementFood,
+} from "../../store/basket/basketThunk";
 
 export const Basket = ({ onToggle }) => {
   const { basketData, isLoading } = useSelector((state) => state.basket);
@@ -16,15 +16,11 @@ export const Basket = ({ onToggle }) => {
   const dispatch = useDispatch();
 
   const incrementAmount = (id, amount) => {
-    dispatch(updateBasketItem({ amount: amount + 1, id: id }));
+    dispatch(incrementFood({ amount: amount + 1, id: id }));
   };
 
   const decrementAmount = (id, amount) => {
-    if (amount > 1) {
-      dispatch(updateBasketItem({ amount: amount - 1, id: id }));
-    } else {
-      dispatch(deleteBasketItem(id));
-    }
+    dispatch(decrementFood({ id: id, amount: amount - 1 }));
   };
 
   useEffect(() => {
