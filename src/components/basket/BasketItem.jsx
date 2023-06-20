@@ -3,15 +3,36 @@ import { Button } from "../UI/Button";
 import styled from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/icons/PlusIconBasket.svg";
 import { ReactComponent as MinusIcon } from "../../assets/icons/MinusIcon.svg";
+import { useDispatch } from "react-redux";
+import { decrementFood, incrementFood } from "../../store/basket/basketThunk";
+import { snackbarAction } from "../../store/snackbar";
 
-export const BasketItem = ({
-  title,
-  price,
-  amount,
-  id,
-  incrementAmount,
-  decrementAmount,
-}) => {
+export const BasketItem = ({ title, price, amount, id }) => {
+  const dispatch = useDispatch();
+
+  const incrementFoodHandler = async () => {
+    try {
+      await dispatch(incrementFood({ id: id, amount: amount })).unwrap();
+
+      dispatch(snackbarAction.doSuccess(`${title} - Успешно добавлен `));
+    } catch (error) {
+      dispatch(
+        snackbarAction.doError("Извините кажется у вас нету интернета ")
+      );
+    }
+  };
+
+  const decrementFoodHandler = async () => {
+    try {
+      await dispatch(decrementFood({ id: id, amount: amount - 1 })).unwrap();
+      dispatch(snackbarAction.doSuccess(`${title} - Успешно удалён `));
+    } catch (error) {
+      dispatch(
+        snackbarAction.doError("Извините кажется у вас нету интернета ")
+      );
+    }
+  };
+
   return (
     <Container>
       <h4>{title}</h4>
@@ -24,7 +45,7 @@ export const BasketItem = ({
           <BoxButton>
             <Button
               borderRadius="squared"
-              onClick={() => decrementAmount(id, amount)}
+              onClick={decrementFoodHandler}
               variant="outlined"
               icon={<MinusIcon />}
             ></Button>
@@ -33,7 +54,7 @@ export const BasketItem = ({
           <BoxButton>
             <Button
               borderRadius="squared"
-              onClick={incrementAmount}
+              onClick={incrementFoodHandler}
               variant="outlined"
               icon={<PlusIcon />}
             ></Button>

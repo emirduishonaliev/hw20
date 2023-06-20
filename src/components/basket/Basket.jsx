@@ -4,24 +4,12 @@ import { BasketItem } from "./BasketItem";
 import { TotalAmount } from "./TotalAmount";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  decrementFood,
-  getBasket,
-  incrementFood,
-} from "../../store/basket/basketThunk";
+import { getBasket } from "../../store/basket/basketThunk";
 
 export const Basket = ({ onToggle }) => {
   const { basketData, isLoading } = useSelector((state) => state.basket);
 
   const dispatch = useDispatch();
-
-  const incrementAmount = (id, amount) => {
-    dispatch(incrementFood({ amount: amount + 1, id: id }));
-  };
-
-  const decrementAmount = (id, amount) => {
-    dispatch(decrementFood({ id: id, amount: amount - 1 }));
-  };
 
   useEffect(() => {
     dispatch(getBasket());
@@ -43,8 +31,8 @@ export const Basket = ({ onToggle }) => {
             {basketData?.map((item) => {
               return (
                 <BasketItem
-                  incrementAmount={() => incrementAmount(item._id, item.amount)}
-                  decrementAmount={() => decrementAmount(item._id, item.amount)}
+                  // incrementAmount={() => incrementAmount(item._id, item.amount)}
+                  // decrementAmount={() => decrementAmount(item._id, item.amount)}
                   key={item._id}
                   title={item.title}
                   price={item.price}

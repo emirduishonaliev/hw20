@@ -3,16 +3,18 @@ import styled from "styled-components";
 import { MealItemForm } from "./MealItemForm";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../../store/basket/basketThunk";
+import { snackbarAction } from "../../../store/snackbar";
 
 export const MealItem = ({ meal }) => {
   const dispatch = useDispatch();
 
-  const addProduct = (amount) => {
-    const data = {
-      id: meal._id,
-      amount: +amount,
-    };
-    dispatch(addItem(data));
+  const addProduct = async (amount) => {
+    try {
+      await dispatch(addItem({ id: meal._id, amount: amount })).unwrap();
+      dispatch(snackbarAction.doSuccess("Successfully added"));
+    } catch (error) {
+      dispatch(snackbarAction.doError("Something went wrong"));
+    }
   };
 
   return (

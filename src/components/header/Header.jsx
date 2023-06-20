@@ -42,7 +42,7 @@ const Container = styled.div`
   background: #8a2b06;
   color: white;
   position: fixed;
-  z-index: 50000000;
+  z-index: 998;
 
   .bump {
     animation: bump 300ms ease-out;
